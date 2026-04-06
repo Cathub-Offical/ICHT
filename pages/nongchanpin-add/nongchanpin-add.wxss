@@ -1,0 +1,154 @@
+@import "../../app.wxss";
+
+.hero-card {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: #ffffff;
+}
+
+.hero-card .title,
+.hero-card .subtitle {
+  color: #ffffff;
+}
+
+.hero-card .subtitle {
+  opacity: 0.92;
+}
+
+.hero-card .tag {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.form-card {
+  border: 1rpx solid #d7f3df;
+  background: linear-gradient(180deg, #ffffff 0%, #f7fff9 100%);
+  padding: 32rpx 28rpx;
+  box-shadow: 0 10rpx 24rpx rgba(22, 163, 74, 0.08);
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.section-tip {
+  font-size: 24rpx;
+  color: #64748b;
+  margin-top: 8rpx;
+  margin-bottom: 12rpx;
+}
+
+.divider {
+  height: 1rpx;
+  background: #dff5e6;
+  margin: 28rpx 0 18rpx;
+}
+
+.form-field {
+  margin-top: 20rpx;
+}
+
+.label {
+  display: block;
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 10rpx;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  background: #ffffff;
+  border: 1rpx solid #d7f3df;
+  border-radius: 14rpx;
+  padding: 22rpx 20rpx;
+  font-size: 26rpx;
+  color: #1f2328;
+  box-sizing: border-box;
+  box-shadow: inset 0 1rpx 6rpx rgba(22, 163, 74, 0.07);
+}
+
+.input {
+  min-height: 92rpx;
+}
+
+.picker {
+  display: flex;
+  align-items: center;
+}
+
+.picker.placeholder {
+  color: #9ca3af;
+}
+
+.time-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 16rpx;
+}
+
+.time-preview {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: #15803d;
+}
+
+.textarea {
+  min-height: 220rpx;
+  line-height: 1.6;
+}
+
+.upload-row {
+  margin-top: 14rpx;
+}
+
+.upload-row .secondary-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 999rpx;
+  background: #f7fff9;
+  color: #15803d;
+  border: 1rpx solid #b7e5c6;
+  padding: 16rpx 0;
+}
+
+.preview {
+  margin-top: 16rpx;
+  width: 100%;
+  height: 280rpx;
+  border-radius: 16rpx;
+  background: #f0f1f3;
+}
+
+.action-row {
+  display: flex;
+  gap: 18rpx;
+  margin-top: 28rpx;
+}
+
+.action-row .primary-btn,
+.action-row .secondary-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex: 1;
+  border-radius: 999rpx;
+  font-size: 26rpx;
+  padding: 18rpx 0;
+}
+
+.action-row .primary-btn {
+  background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+  box-shadow: 0 8rpx 18rpx rgba(22, 163, 74, 0.24);
+}
+
+.action-row .secondary-btn {
+  background: #f7fff9;
+  color: #15803d;
+  border: 1rpx solid #b7e5c6;
+}

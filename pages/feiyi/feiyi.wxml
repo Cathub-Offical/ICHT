@@ -1,0 +1,84 @@
+<glass-nav title="非遗文化" />
+
+<view class="container {{elderMode ? 'elder-mode' : ''}}">
+  <view class="card hero-card">
+    <view class="title">非遗梯田文化</view>
+    <view class="subtitle">记录非遗梯田的文化传承与地理风貌</view>
+    <view>
+      <text class="tag">梯田文化</text>
+      <text class="tag">非遗传承</text>
+      <text class="tag">乡土风情</text>
+    </view>
+  </view>
+
+  <view class="floating-add" wx:if="{{(isAdmin && (showAddBtn || items.length === 0))}}" bindtap="onAddTap"><text class="floating-add-icon">+</text></view>
+
+  <view class="user-search-card" wx:if="{{!isAdmin}}">
+    <view class="user-search-bar">
+      <image class="search-icon" src="/assets/icons/search.svg" mode="aspectFit" />
+      <input class="user-search-input" value="{{userSearchKeyword}}" placeholder="搜索标题 / 地点..." bindinput="onUserSearchInput" confirm-type="search" />
+      <text class="search-clear" wx:if="{{userSearchKeyword}}" bindtap="onUserSearchClear">✕</text>
+    </view>
+  </view>
+
+  <view class="card filter-card" wx:if="{{isAdmin}}">
+    <view class="subtitle filter-title">历史数据查询</view>
+    <view class="filter-tip">可按标题与日期范围快速筛选内容</view>
+    <view class="form-field">
+      <text class="label">标题关键字</text>
+      <input class="input keyword-input" value="{{query.keyword}}" placeholder="请输入标题关键字" bindinput="onQueryKeywordInput" />
+    </view>
+    <view class="form-grid">
+      <view class="form-field">
+        <text class="label">开始日期</text>
+        <picker mode="date" value="{{query.startDate}}" bindchange="onQueryStartChange">
+          <view class="picker {{query.startDate ? '' : 'placeholder'}}">
+            {{query.startDate || "请选择开始日期"}}
+          </view>
+        </picker>
+      </view>
+      <view class="form-field">
+        <text class="label">结束日期</text>
+        <picker mode="date" value="{{query.endDate}}" bindchange="onQueryEndChange">
+          <view class="picker {{query.endDate ? '' : 'placeholder'}}">
+            {{query.endDate || "请选择结束日期"}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="action-row">
+      <view class="primary-btn" bindtap="onQuerySubmit">查询</view>
+      <view class="secondary-btn" bindtap="onQueryReset">重置</view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{loading}}">
+    <view class="subtitle">内容加载中...</view>
+  </view>
+
+  <view class="card" wx:if="{{!loading && userSearchKeyword && filteredItems.length === 0 && items.length > 0}}">
+    <view class="subtitle">未找到“{{userSearchKeyword}}”相关内容</view>
+  </view>
+
+  <view class="card" wx:if="{{!loading && items.length === 0}}">
+    <view class="subtitle">暂无非遗梯田文化内容</view>
+    <view class="subtitle" wx:if="{{isAdmin}}">点击左上角 + 新增内容</view>
+  </view>
+
+  <block wx:for="{{filteredItems}}" wx:key="_id" wx:for-index="index">
+    <view class="card culture-card" bindtap="onItemTap" data-index="{{index}}">
+      <image class="culture-image" src="{{item.imageUrl}}" mode="aspectFill" />
+      <view class="card-body">
+        <view class="subtitle">{{item.title}}</view>
+        <view class="desc">{{item.description}}</view>
+        <view class="location">地理位置：{{item.location}}</view>
+        <view class="detail-link">点击查看详情 ></view>
+        <view class="admin-actions" wx:if="{{isAdmin}}">
+          <view class="primary-btn small" catchtap="onEditTap" data-index="{{index}}" style="width: 149rpx; display: block; box-sizing: border-box; height: 68rpx">编辑</view>
+          <view class="secondary-btn small danger" catchtap="onDeleteTap" data-index="{{index}}" style="width: 149rpx; display: block; box-sizing: border-box">删除</view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <view class="back-to-top" wx:if="{{showBackTop}}" bindtap="onBackTop"><text class="back-to-top-icon">↑</text></view>
+</view>

@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "非遗详情",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "glass-nav": "/components/glass-nav/index",
+    "xr-model": "/components/xr-model/index"
+  }
+}

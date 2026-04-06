@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "农产品管理",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "glass-nav": "/components/glass-nav/index"
+  }
+}

@@ -1,0 +1,13 @@
+<view class="glass-nav" style="padding-top: {{statusBarHeight}}px; height: {{navContentHeight}}px;">
+  <view class="glass-nav__content">
+    <view class="glass-nav__left">
+      <view wx:if="{{showBack}}" class="glass-nav__back" bindtap="onBack">
+        <text class="glass-nav__back-icon">‹</text>
+      </view>
+    </view>
+    <view class="glass-nav__title">{{title}}</view>
+    <view class="glass-nav__right"></view>
+  </view>
+</view>
+
+<view class="glass-nav__placeholder" style="height: {{totalHeight}}px;"></view>

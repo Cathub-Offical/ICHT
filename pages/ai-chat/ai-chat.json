@@ -1,0 +1,6 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "glass-nav": "/components/glass-nav/index"
+  }
+}

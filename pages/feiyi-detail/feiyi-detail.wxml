@@ -1,0 +1,46 @@
+<glass-nav title="非遗详情" />
+
+<view class="container {{elderMode ? 'elder-mode' : ''}}">
+  <view class="card" wx:if="{{loading}}">
+    <view class="subtitle">详情加载中...</view>
+  </view>
+
+  <view class="card" wx:if="{{!loading && !item}}">
+    <view class="subtitle">未找到该非遗内容</view>
+  </view>
+
+  <view class="card detail-card" wx:if="{{!loading && item}}">
+    <image class="detail-image" src="{{item.imageUrl}}" mode="aspectFill" />
+    <view class="title">{{item.title}}</view>
+    <view class="meta-row">
+      <text class="meta-label">地理位置</text>
+      <text class="meta-value">{{item.location || "--"}}</text>
+    </view>
+    <view class="meta-row">
+      <text class="meta-label">记录时间</text>
+      <text class="meta-value">{{createdAtText}}</text>
+    </view>
+
+    <view class="section-title">文化简介</view>
+    <view class="desc">{{item.description || "暂无简介"}}</view>
+
+    <view wx:if="{{item.modelUrl}}">
+      <view class="section-title">3D 模型展示</view>
+      <view class="model-wrapper">
+        <xr-model
+          class="model-frame"
+          src="{{item.modelUrl}}"
+          style="width:{{modelWidth}}px;height:{{modelHeight}}px;"
+          width="{{modelRenderWidth}}"
+          height="{{modelRenderHeight}}"
+          bind:ready="onXrReady"
+          bind:loaded="onModelLoaded"
+          bind:error="onXrError"
+        />
+        <view class="model-error" wx:if="{{modelError}}">
+          <text class="model-error-text">{{modelError}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

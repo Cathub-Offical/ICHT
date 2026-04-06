@@ -1,0 +1,87 @@
+<glass-nav title="农产品管理" />
+
+<view class="container {{elderMode ? 'elder-mode' : ''}}">
+  <view class="card hero-card">
+    <view class="title">{{editingId ? "编辑农产品" : "新增农产品"}}</view>
+    <view class="subtitle">请完整填写农产品信息，便于后续展示与追溯</view>
+    <view>
+      <text class="tag">产地信息</text>
+      <text class="tag">营养说明</text>
+      <text class="tag">溯源可查</text>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{loading}}">
+    <view class="subtitle">数据加载中...</view>
+  </view>
+
+  <view class="card form-card">
+    <view class="section-title">基础信息</view>
+    <view class="section-tip">请填写产品名称、描述、产地和价格</view>
+    <view class="form-field">
+      <text class="label">名称</text>
+      <input class="input" value="{{form.name}}" placeholder="请输入农产品名称" bindinput="onInputName" />
+    </view>
+    <view class="form-field">
+      <text class="label">文字描述</text>
+      <textarea class="textarea" value="{{form.description}}" placeholder="请输入文字描述" auto-height bindinput="onInputDescription"></textarea>
+    </view>
+    <view class="form-field">
+      <text class="label">产地</text>
+      <input class="input" value="{{form.origin}}" placeholder="请输入产地" bindinput="onInputOrigin" />
+    </view>
+    <view class="form-field">
+      <text class="label">价格</text>
+      <input class="input" value="{{form.price}}" placeholder="例如 18.8" type="number" bindinput="onInputPrice" />
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="section-title">营养与溯源</view>
+    <view class="section-tip">建议尽量详细填写，便于用户了解产品品质</view>
+    <view class="form-field">
+      <text class="label">营养成分</text>
+      <textarea class="textarea" value="{{form.nutrition}}" placeholder="请输入营养成分" auto-height bindinput="onInputNutrition"></textarea>
+    </view>
+    <view class="form-field">
+      <text class="label">采摘时间（年月日时分秒）</text>
+      <view class="time-grid">
+        <picker mode="date" value="{{harvestDate}}" bindchange="onHarvestDateChange">
+          <view class="input picker {{harvestDate ? '' : 'placeholder'}}">{{harvestDate || "请选择日期"}}</view>
+        </picker>
+        <picker mode="time" value="{{harvestClock}}" bindchange="onHarvestClockChange">
+          <view class="input picker {{harvestClock ? '' : 'placeholder'}}">{{harvestClock || "请选择时间"}}</view>
+        </picker>
+        <picker mode="selector" range="{{secondOptions}}" value="{{harvestSecondIndex}}" bindchange="onHarvestSecondChange">
+          <view class="input picker">{{harvestSecond}} 秒</view>
+        </picker>
+      </view>
+      <view class="time-preview" wx:if="{{form.harvestTime}}">已选择：{{form.harvestTime}}</view>
+    </view>
+    <view class="form-field">
+      <text class="label">溯源编号（自动生成）</text>
+      <input class="input" value="{{form.traceInfo}}" disabled />
+      <view class="upload-row" wx:if="{{!editingId}}">
+        <view class="secondary-btn" bindtap="onRegenerateTraceInfo">重新生成</view>
+      </view>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="section-title">图片信息</view>
+    <view class="section-tip">可填写图片链接，或点击下方按钮上传</view>
+    <view class="form-field">
+      <text class="label">照片</text>
+      <input class="input" value="{{form.imageUrl}}" placeholder="图片链接或上传" bindinput="onInputImage" />
+      <view class="upload-row">
+        <view class="secondary-btn" bindtap="onChooseImage">上传图片</view>
+      </view>
+      <image wx:if="{{form.imageUrl}}" class="preview" src="{{form.imageUrl}}" mode="aspectFill" />
+    </view>
+
+    <view class="action-row">
+      <view class="primary-btn" bindtap="onSubmit">{{editingId ? "保存修改" : "新增"}}</view>
+      <view class="secondary-btn" bindtap="onCancel">取消</view>
+    </view>
+  </view>
+</view>

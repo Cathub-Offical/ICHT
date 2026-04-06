@@ -1,0 +1,79 @@
+<glass-nav title="非遗文化管理" />
+
+<view class="container {{elderMode ? 'elder-mode' : ''}}">
+  <view class="card hero-card">
+    <view class="title">{{editingId ? "编辑非遗梯田文化" : "新增非遗梯田文化"}}</view>
+    <view class="subtitle">请完整填写非遗梯田文化信息，便于后续展示与检索</view>
+    <view>
+      <text class="tag">文化记录</text>
+      <text class="tag">图文完善</text>
+      <text class="tag">位置清晰</text>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{loading}}">
+    <view class="subtitle">数据加载中...</view>
+  </view>
+
+  <view class="card form-card">
+    <view class="section-title">基础信息</view>
+    <view class="section-tip">请填写准确的标题、描述和地理位置</view>
+    <view class="form-field">
+      <text class="label">标题</text>
+      <input class="input" value="{{form.title}}" placeholder="请输入标题" bindinput="onInputTitle" />
+    </view>
+    <view class="form-field">
+      <text class="label">文字描述</text>
+      <textarea class="textarea" value="{{form.description}}" placeholder="请输入文字描述" auto-height bindinput="onInputDescription"></textarea>
+    </view>
+    <view class="form-field">
+      <text class="label">地理位置</text>
+      <input class="input" value="{{form.location}}" placeholder="请输入地理位置介绍" bindinput="onInputLocation" />
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="section-title">图片信息</view>
+    <view class="section-tip">可直接填写图片链接，或点击按钮上传图片</view>
+    <view class="form-field">
+      <text class="label">照片</text>
+      <input class="input" value="{{form.imageUrl}}" placeholder="图片链接或上传" bindinput="onInputImage" />
+      <view class="upload-row">
+        <view class="secondary-btn" bindtap="onChooseImage">上传图片</view>
+      </view>
+      <image wx:if="{{form.imageUrl}}" class="preview" src="{{form.imageUrl}}" mode="aspectFill" />
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="section-title">3D 模型</view>
+    <view class="section-tip">上传 .glb 格式的 3D 模型文件（可选）</view>
+    <view class="form-field">
+      <view wx:if="{{uploadingModel}}" class="model-card model-card--loading">
+        <image class="model-card-icon" src="/assets/icons/model-upload.svg" mode="aspectFit"/>
+        <view class="model-card-info">
+          <text class="model-card-label">上传中，请稍候...</text>
+        </view>
+      </view>
+      <view wx:elif="{{form.modelUrl}}" class="model-card model-card--done">
+        <image class="model-card-icon" src="/assets/icons/model-box.svg" mode="aspectFit"/>
+        <view class="model-card-info">
+          <text class="model-card-label">GLB 模型已就绪</text>
+          <text class="model-card-name">{{modelFileName || "模型文件.glb"}}</text>
+        </view>
+        <view class="model-card-btns">
+          <view class="model-reupload-btn" bindtap="onChooseModel">重传</view>
+          <view class="model-remove-btn" bindtap="onRemoveModel">删除</view>
+        </view>
+      </view>
+      <view wx:else class="upload-row">
+        <view class="secondary-btn" bindtap="onChooseModel">上传 GLB 模型</view>
+      </view>
+    </view>
+
+    <view class="action-row">
+      <view class="primary-btn" bindtap="onSubmit">{{editingId ? "保存修改" : "新增"}}</view>
+      <view class="secondary-btn" bindtap="onCancel">取消</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "glass-nav": "/components/glass-nav/index"
+  },
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "系统设置"
+}

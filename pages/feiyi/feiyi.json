@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "非遗文化",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "glass-nav": "/components/glass-nav/index"
+  }
+}

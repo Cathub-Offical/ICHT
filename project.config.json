@@ -1,0 +1,45 @@
+{
+  "miniprogramRoot": "",
+  "projectname": "feiyititian",
+  "description": "基于微信小程序与微信云开发技术的非遗与农产品展示项目",
+  "appid": "wxdf9eb481c9d8bec4",
+  "setting": {
+    "urlCheck": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "es6": true,
+    "postcss": false,
+    "compileWorklet": false,
+    "minified": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "enhance": false,
+    "packNpmManually": true,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true
+  },
+  "cloudfunctionRoot": "cloudfunctions/",
+  "cloud": true,
+  "compileType": "miniprogram",
+  "libVersion": "3.14.2",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "condition": {},
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  },
+  "simulatorPluginLibVersion": {}
+}

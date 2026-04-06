@@ -1,0 +1,69 @@
+{
+  "pages": [
+    "pages/auth/auth",
+    "pages/home/home",
+    "pages/feiyi/feiyi",
+    "pages/feiyi-detail/feiyi-detail",
+    "pages/feiyi-add/feiyi-add",
+    "pages/nongchanpin/nongchanpin",
+    "pages/nongchanpin-detail/nongchanpin-detail",
+    "pages/nongchanpin-add/nongchanpin-add",
+    "pages/ai-chat/ai-chat",
+    "pages/orders/orders",
+    "pages/favorite-list/favorite-list",
+    "pages/user-manage/user-manage",
+    "pages/settings/settings",
+    "pages/wode/wode"
+  ],
+  "window": {
+    "navigationBarTitleText": "非遗提田",
+    "navigationBarBackgroundColor": "#fff7ed",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#6b7280",
+    "selectedColor": "#3b5bdb",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "/assets/tabbar/home-normal.png",
+        "selectedIconPath": "/assets/tabbar/home-selected.png"
+      },
+      {
+        "pagePath": "pages/feiyi/feiyi",
+        "text": "非遗",
+        "iconPath": "/assets/tabbar/feiyi-normal.png",
+        "selectedIconPath": "/assets/tabbar/feiyi-selected.png"
+      },
+      {
+        "pagePath": "pages/nongchanpin/nongchanpin",
+        "text": "农产品",
+        "iconPath": "/assets/tabbar/nongchanpin-normal.png",
+        "selectedIconPath": "/assets/tabbar/nongchanpin-selected.png"
+      },
+      {
+        "pagePath": "pages/ai-chat/ai-chat",
+        "text": "AI咨询",
+        "iconPath": "/assets/tabbar/home-normal.png",
+        "selectedIconPath": "/assets/tabbar/home-selected.png"
+      },
+      {
+        "pagePath": "pages/orders/orders",
+        "text": "订单",
+        "iconPath": "/assets/tabbar/orders-normal.png",
+        "selectedIconPath": "/assets/tabbar/orders-selected.png"
+      },
+      {
+        "pagePath": "pages/wode/wode",
+        "text": "我的",
+        "iconPath": "/assets/tabbar/wode-normal.png",
+        "selectedIconPath": "/assets/tabbar/wode-selected.png"
+      }
+    ]
+  },
+  "style": "v2"
+}

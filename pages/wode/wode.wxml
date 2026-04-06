@@ -1,0 +1,56 @@
+<glass-nav title="我的" showBack="{{false}}" />
+
+<view class="container {{elderMode ? 'elder-mode' : ''}}">
+  <view class="card profile-card">
+    <view class="profile-avatar-wrap">
+      <image wx:if="{{user.avatarUrl}}" class="profile-avatar" src="{{user.avatarUrl}}" mode="aspectFill" />
+      <view wx:else class="profile-avatar-initial">
+        <text>{{user.name ? user.name[0] : '我'}}</text>
+      </view>
+    </view>
+    <view class="profile-info">
+      <view class="title">{{user.name}}</view>
+      <view class="subtitle" wx:if="{{user.location}}">{{user.location}}</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="subtitle">常用功能</view>
+    <block wx:for="{{actions}}" wx:key="key">
+      <view wx:if="{{item.danger}}" class="list-item danger" bindtap="onActionTap" data-action="{{item.key}}" data-label="{{item.label}}">
+        <text>{{item.label}}</text>
+        <text class="list-arrow">›</text>
+      </view>
+      <view wx:else class="list-item" bindtap="onActionTap" data-action="{{item.key}}" data-label="{{item.label}}">
+        <text>{{item.label}}</text>
+        <text class="list-arrow">›</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="card" id="favorite-card" wx:if="{{!isAdmin}}">
+    <view class="subtitle">历史收藏</view>
+    <view class="subtitle" wx:if="{{loadingFavorites}}">收藏加载中...</view>
+    <view class="subtitle" wx:if="{{!loadingFavorites && favoriteItems.length === 0}}">暂无收藏记录，去农产品页收藏吧</view>
+
+    <block wx:for="{{favoriteItems}}" wx:key="_id" wx:for-index="index">
+      <view class="fav-swipe-row"
+            data-index="{{index}}"
+            bindtouchstart="onFavSwipeStart"
+            bindtouchmove="onFavSwipeMove"
+            bindtouchend="onFavSwipeEnd">
+        <view class="fav-swipe-inner {{swipedFavIndex === index ? 'open' : ''}}">
+          <view class="favorite-item" bindtap="onFavoriteItemTap" data-product-id="{{item.productId}}">
+            <image class="favorite-image" src="{{item.imageUrl}}" mode="aspectFill" />
+            <view class="favorite-body">
+              <view class="favorite-name">{{item.name}}</view>
+              <view class="favorite-meta">价格：¥{{item.priceDisplay}}</view>
+              <view class="favorite-meta">收藏时间：{{item.createdAtText}}</view>
+            </view>
+          </view>
+          <view class="fav-swipe-del" catchtap="onFavoriteRemoveTap" data-id="{{item._id}}" data-index="{{index}}">取消</view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

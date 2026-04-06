@@ -1,0 +1,62 @@
+.glass-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background-image:
+    radial-gradient(880rpx 420rpx at 18% 10%, rgba(56, 189, 248, 0.22), rgba(56, 189, 248, 0) 62%),
+    radial-gradient(760rpx 420rpx at 88% 0%, rgba(250, 204, 21, 0.18), rgba(250, 204, 21, 0) 58%),
+    linear-gradient(180deg, rgba(240, 249, 255, 0.92) 0%, rgba(255, 255, 255, 0.70) 62%, rgba(255, 255, 255, 0) 100%);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.glass-nav__content {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 24rpx;
+}
+
+.glass-nav__left,
+.glass-nav__right {
+  width: 120rpx;
+  display: flex;
+  align-items: center;
+}
+
+.glass-nav__right {
+  justify-content: flex-end;
+}
+
+.glass-nav__title {
+  flex: 1;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.glass-nav__back {
+  width: 72rpx;
+  height: 56rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glass-nav__back-icon {
+  font-size: 44rpx;
+  line-height: 44rpx;
+  color: #111827;
+  margin-top: -2rpx;
+}
+
+.glass-nav__placeholder {
+  width: 100%;
+}

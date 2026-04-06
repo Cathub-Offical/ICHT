@@ -1,0 +1,53 @@
+<glass-nav title="登录" />
+
+<view class="container {{elderMode ? 'elder-mode' : ''}}">
+
+  <!-- 微信一键登录 -->
+  <view wx:if="{{step === 'wx'}}" class="card wx-card">
+    <view class="wx-hero">
+      <image class="wx-logo" src="/assets/icons/mountain.svg" mode="aspectFit" />
+      <view class="title">农遗共兴</view>
+      <view class="subtitle">使用微信账号快速登录</view>
+    </view>
+    <button class="primary-btn wx-btn" loading="{{wxLoading}}" disabled="{{wxLoading}}" bindtap="onWxLogin">微信一键登录</button>
+    <view class="admin-entry" bindtap="onShowAdmin">管理员登录</view>
+  </view>
+
+  <!-- 首次登录：设置头像昵称 -->
+  <view wx:if="{{step === 'profile'}}" class="card">
+    <view class="title">完善个人信息</view>
+    <view class="subtitle">设置你的昵称和头像</view>
+
+    <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+      <image wx:if="{{profile.avatarUrl}}" class="avatar-img" src="{{profile.avatarUrl}}" mode="aspectFill" />
+      <view wx:else class="avatar-placeholder">点击选择头像</view>
+    </button>
+
+    <view class="field">
+      <input class="input" type="nickname" placeholder="点击填写昵称" value="{{profile.name}}" bindinput="onNicknameInput" />
+    </view>
+
+    <button class="primary-btn" loading="{{profileSubmitting}}" disabled="{{profileSubmitting}}" bindtap="onProfileSubmit">完成并登录</button>
+  </view>
+
+  <!-- 管理员登录 -->
+  <view wx:if="{{step === 'admin'}}" class="card">
+    <view class="title">管理员登录</view>
+    <view class="field">
+      <text class="field-label">账号</text>
+      <input class="input" placeholder="请输入账号" value="{{login.account}}" bindinput="onLoginAccountInput" />
+    </view>
+    <view class="field">
+      <text class="field-label">密码</text>
+      <input class="input" password="{{true}}" placeholder="请输入密码" value="{{login.password}}" bindinput="onLoginPasswordInput" />
+    </view>
+    <button class="primary-btn" bindtap="onLoginSubmit" loading="{{loginSubmitting}}" disabled="{{loginSubmitting}}">登录</button>
+    <view class="admin-entry" bindtap="onShowWx">← 返回微信登录</view>
+  </view>
+
+</view>
+
+<view class="auth-footer">
+  <view class="auth-tagline">传承非遗文化 · 共兴美丽梯田</view>
+  <image class="auth-landscape" src="/assets/icons/landscape.svg" mode="scaleToFill" />
+</view>

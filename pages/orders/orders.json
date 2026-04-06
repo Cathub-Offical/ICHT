@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "订单",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "glass-nav": "/components/glass-nav/index"
+  }
+}

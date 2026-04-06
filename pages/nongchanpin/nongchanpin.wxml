@@ -1,0 +1,101 @@
+<glass-nav title="农产品" />
+
+<view class="container {{elderMode ? 'elder-mode' : ''}}">
+  <view class="card hero-card">
+    <view class="title">农产品</view>
+    <view class="subtitle">精选产地直供，记录品质溯源</view>
+    <view>
+      <text class="tag">当季新鲜</text>
+      <text class="tag">溯源透明</text>
+      <text class="tag">营养健康</text>
+    </view>
+  </view>
+
+  <view class="floating-add" wx:if="{{(isAdmin && (showAddBtn || items.length === 0))}}" bindtap="onAddTap"><text class="floating-add-icon">+</text></view>
+
+  <view class="user-search-card" wx:if="{{!isAdmin}}">
+    <view class="user-search-bar">
+      <image class="search-icon" src="/assets/icons/search.svg" mode="aspectFit" />
+      <input class="user-search-input" value="{{userSearchKeyword}}" placeholder="搜索名称 / 产地..." bindinput="onUserSearchInput" confirm-type="search" />
+      <text class="search-clear" wx:if="{{userSearchKeyword}}" bindtap="onUserSearchClear">✕</text>
+    </view>
+  </view>
+
+  <view class="card filter-card" wx:if="{{isAdmin}}">
+    <view class="subtitle filter-title">历史数据查询</view>
+    <view class="filter-tip">可按名称与日期范围快速筛选产品</view>
+    <view class="form-field">
+      <text class="label">名称关键字</text>
+      <input class="input keyword-input" value="{{query.keyword}}" placeholder="请输入名称关键字" bindinput="onQueryKeywordInput" />
+    </view>
+    <view class="form-grid">
+      <view class="form-field">
+        <text class="label">开始日期</text>
+        <picker mode="date" value="{{query.startDate}}" bindchange="onQueryStartChange">
+          <view class="picker {{query.startDate ? '' : 'placeholder'}}">
+            {{query.startDate || "请选择开始日期"}}
+          </view>
+        </picker>
+      </view>
+      <view class="form-field">
+        <text class="label">结束日期</text>
+        <picker mode="date" value="{{query.endDate}}" bindchange="onQueryEndChange">
+          <view class="picker {{query.endDate ? '' : 'placeholder'}}">
+            {{query.endDate || "请选择结束日期"}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="action-row">
+      <view class="primary-btn" bindtap="onQuerySubmit">查询</view>
+      <view class="secondary-btn" bindtap="onQueryReset">重置</view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{loading}}">
+    <view class="subtitle">内容加载中...</view>
+  </view>
+
+  <view class="card" wx:if="{{!loading && userSearchKeyword && filteredItems.length === 0 && items.length > 0}}">
+    <view class="subtitle">未找到“{{userSearchKeyword}}”相关产品</view>
+  </view>
+
+  <view class="card" wx:if="{{!loading && items.length === 0}}">
+    <view class="subtitle">暂无农产品信息</view>
+    <view class="subtitle" wx:if="{{isAdmin}}">点击左上角 + 新增农产品</view>
+  </view>
+
+  <block wx:for="{{filteredItems}}" wx:key="_id" wx:for-index="index">
+    <view class="card product-card" bindtap="onItemTap" data-index="{{index}}">
+      <image class="product-image" src="{{item.imageUrl}}" mode="aspectFill" />
+      <view class="card-body">
+        <view class="product-head">
+          <view class="subtitle product-title">{{item.name}}</view>
+          <view class="favorite-btn {{item.isFavorite ? 'active' : ''}}" wx:if="{{!isAdmin}}" catchtap="onFavoriteTap" data-index="{{index}}">
+            {{item.isFavorite ? "已收藏" : "收藏"}}
+          </view>
+        </view>
+        <view class="desc">{{item.description}}</view>
+        <view class="meta-grid">
+          <view class="meta-item">
+            <text class="meta-label">产地</text>
+            <text class="meta-value">{{item.origin}}</text>
+          </view>
+          <view class="meta-item">
+            <text class="meta-label">价格（斤）</text>
+            <text class="meta-value price">¥{{item.price}}</text>
+          </view>
+        </view>
+        <view class="meta-line">营养成分：{{item.nutrition}}</view>
+        <view class="meta-line">采摘时间：{{item.harvestTime}}</view>
+        <view class="meta-line">溯源编号：{{item.traceInfo}}</view>
+        <view class="detail-link" wx:if="{{!isAdmin}}">点击查看详情并下单 ></view>
+        <view class="admin-actions" wx:if="{{isAdmin}}">
+          <view class="primary-btn small" catchtap="onEditTap" data-index="{{index}}">编辑</view>
+          <view class="secondary-btn small danger" catchtap="onDeleteTap" data-index="{{index}}">删除</view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <view class="back-to-top" wx:if="{{showBackTop}}" bindtap="onBackTop"><text class="back-to-top-icon">↑</text></view>
+</view>

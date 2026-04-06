@@ -1,0 +1,117 @@
+@import "../../app.wxss";
+
+.wx-card {
+  text-align: center;
+}
+
+.wx-hero {
+  padding: 32rpx 0 40rpx;
+}
+
+.wx-logo {
+  width: 96rpx;
+  height: 96rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.7;
+}
+
+.wx-btn {
+  margin-top: 8rpx;
+  margin-bottom: 0;
+}
+
+.admin-entry {
+  margin-top: 28rpx;
+  font-size: 24rpx;
+  color: #9ca3af;
+  text-align: center;
+  padding: 8rpx 0;
+}
+
+.avatar-wrap {
+  position: relative;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  margin: 24rpx auto;
+  overflow: hidden;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-img {
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.avatar-placeholder {
+  font-size: 22rpx;
+  color: #9ca3af;
+  text-align: center;
+  padding: 0 16rpx;
+}
+
+.avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+
+.avatar-overlay::after {
+  display: none;
+}
+
+.field {
+  margin-bottom: 20rpx;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 12rpx;
+  color: #5f6368;
+  font-size: 24rpx;
+}
+
+.input {
+  background: #f6f7fb;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+}
+
+.primary-btn {
+  margin-top: 8rpx;
+  background: #f3f4f6;
+  border: 1rpx solid #d1d5db;
+  color: #374151;
+}
+
+.auth-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.auth-tagline {
+  text-align: center;
+  font-size: 22rpx;
+  color: #b8c4d0;
+  letter-spacing: 4rpx;
+  padding-bottom: 8rpx;
+}
+
+.auth-landscape {
+  display: block;
+  width: 100%;
+  height: 280rpx;
+}

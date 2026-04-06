@@ -1,0 +1,89 @@
+<glass-nav title="首页" showBack="{{false}}" />
+
+<view class="container {{elderMode ? 'elder-mode' : ''}}">
+  <view class="card">
+    <view class="title">首页</view>
+    <view class="subtitle">数据可视化看板</view>
+    <view class="subtitle">最后更新时间：{{lastUpdated}}</view>
+  </view>
+
+  <view class="card" wx:if="{{loading}}">
+    <view class="subtitle">数据加载中...</view>
+  </view>
+
+  <view class="card" style="height: 425rpx; display: block; box-sizing: border-box; position: relative; left: 0rpx; top: -2rpx">
+    <view class="section-title" style="position: relative; left: 0rpx; top: -6rpx">订单统计</view>
+    <swiper class="stat-swiper" indicator-dots="false" style="height: 289rpx; display: block; box-sizing: border-box">
+      <swiper-item>
+        <view style="padding-top: 8px; height: 283rpx; display: block; box-sizing: border-box">
+          <view class="stats-grid" style="height: 247rpx; display: grid; box-sizing: border-box; left: -4rpx; top: -16rpx; position: relative; width: 639rpx">
+            <view class="stat-item" style="height: 124rpx; display: block; box-sizing: border-box; position: relative; left: 8rpx; top: 0rpx">
+              <text class="stat-label">总订单</text>
+              <text class="stat-value">{{stats.orders.total}}</text>
+            </view>
+            <view class="stat-item">
+              <text class="stat-label">待发货</text>
+              <text class="stat-value">{{stats.orders.pending}}</text>
+            </view>
+            <view class="stat-item" style="position: relative; left: 8rpx; top: 0rpx">
+              <text class="stat-label">配送中</text>
+              <text class="stat-value">{{stats.orders.shipping}}</text>
+            </view>
+            <view class="stat-item">
+              <text class="stat-label">已完成</text>
+              <text class="stat-value">{{stats.orders.finished}}</text>
+            </view>
+          </view>
+        </view>
+      </swiper-item>
+      <swiper-item style="height: 260rpx; display: block; box-sizing: border-box; left: 1rpx; top: 0rpx; width: 635rpx; position: absolute">
+        <view style="height: 112rpx; display: flex; align-items: center; justify-content: center; padding-top: 8px; width: 635rpx; box-sizing: border-box">
+          <canvas id="orderPieCanvas" canvas-id="orderPie" class="pie-canvas" style="width: 429rpx; height: 370rpx; display: block; box-sizing: border-box; left: 0rpx; top: 83rpx; position: relative"></canvas>
+        </view>
+      </swiper-item>
+    </swiper>
+    <view class="hint" style="height: 39rpx; display: block; box-sizing: border-box; position: relative; left: 0rpx; top: -24rpx">
+    状态字段按：
+      <text class="c-pending">待发货</text>
+      /
+      <text class="c-shipping">配送中</text>
+      /
+      <text class="c-finished">已完成</text>
+    统计
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">非遗文化统计</view>
+    <view class="stats-grid single">
+      <view class="stat-item">
+        <text class="stat-label">文化条目</text>
+        <text class="stat-value">{{stats.feiyi.total}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">农产品上架统计</view>
+    <view class="stats-grid single">
+      <view class="stat-item">
+        <text class="stat-label">上架数量</text>
+        <text class="stat-value">{{stats.products.total}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">快捷入口</view>
+    <block wx:for="{{shortcuts}}" wx:key="key">
+      <view class="list-item" bindtap="onShortcutTap" data-path="{{item.path}}">
+        <text>{{item.label}}</text>
+        <text class="list-arrow">›</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="card">
+    <view class="primary-btn" bindtap="fetchStats">刷新数据</view>
+  </view>
+</view>

@@ -1,0 +1,70 @@
+<!--pages/ai-chat/ai-chat.wxml-->
+<glass-nav title="AI 咨询" showBack="{{false}}" />
+
+<view class="ai-page">
+  <scroll-view
+    class="msg-list"
+    scroll-y
+    scroll-into-view="{{scrollAnchor}}"
+    scroll-with-animation
+    style="height: {{scrollH}}px;"
+  >
+    <view class="msg-list-inner">
+      <block wx:for="{{messages}}" wx:key="id">
+        <view id="{{item.id}}" class="msg-row {{item.role === 'user' ? 'user-row' : 'ai-row'}}">
+          <view wx:if="{{item.role === 'ai'}}" class="avatar ai-avatar">
+            <image class="avatar-ai-icon" src="/assets/tabbar/ai-selected.svg" mode="aspectFit"></image>
+          </view>
+          <view wx:if="{{item.role === 'user'}}" class="avatar user-avatar">
+            <image wx:if="{{userAvatar}}" class="avatar-img" src="{{userAvatar}}" mode="aspectFill" />
+            <text wx:else class="avatar-text">{{userName[0]}}</text>
+          </view>
+          <view class="bubble {{item.role === 'user' ? 'user-bubble' : 'ai-bubble'}}">
+            <text class="bubble-text" user-select>{{item.content}}</text>
+            <text class="bubble-time">{{item.time}}</text>
+          </view>
+          <view wx:if="{{item.role === 'user' && loading && index === messages.length - 1}}" class="cancel-reply-btn" bindtap="onCancelReply">
+            <image class="cancel-reply-icon" src="/assets/icons/undo.svg" mode="aspectFit" />
+          </view>
+        </view>
+      </block>
+
+      <view wx:if="{{loading}}" id="msg-loading" class="msg-row ai-row">
+        <view class="avatar ai-avatar">
+          <image class="avatar-ai-icon" src="/assets/tabbar/ai-selected.svg" mode="aspectFit"></image>
+        </view>
+        <view class="bubble ai-bubble typing-bubble">
+          <view class="dot-wave">
+            <view class="dot"></view>
+            <view class="dot"></view>
+            <view class="dot"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view id="msg-bottom" style="height: 1rpx;"></view>
+  </scroll-view>
+
+  <view class="input-bar">
+    <view class="input-row" style="height: 140rpx; display: flex; box-sizing: border-box">
+      <view class="input-wrap">
+        <input
+          class="chat-input"
+          value="{{inputText}}"
+          placeholder="请输入您的问题..."
+          bindinput="onInput"
+          confirm-type="send"
+          bindconfirm="onSend"
+          hold-keyboard
+          adjust-position
+        />
+        <view class="input-clear" wx:if="{{inputText}}" bindtap="onClearInput">✕</view>
+      </view>
+      <view class="send-btn {{(inputText && !loading) ? 'active' : ''}}" bindtap="onSend">
+        <text class="send-text">发送</text>
+      </view>
+    </view>
+    <view class="input-bar-spacer"></view>
+  </view>
+</view>

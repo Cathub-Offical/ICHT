@@ -1,0 +1,9 @@
+{
+  "name": "updateOrderStatus",
+  "version": "1.0.0",
+  "description": "Update order status with admin privileges",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

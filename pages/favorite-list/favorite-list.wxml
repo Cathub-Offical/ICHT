@@ -1,0 +1,33 @@
+<glass-nav title="我的收藏" />
+
+<view class="container {{elderMode ? 'elder-mode' : ''}}">
+  <view class="card">
+    <view class="title">我的收藏</view>
+    <view class="subtitle">收藏的农产品都在这里</view>
+  </view>
+
+  <view class="card">
+    <view class="subtitle" wx:if="{{loadingFavorites}}">收藏加载中...</view>
+    <view class="subtitle" wx:if="{{!loadingFavorites && favoriteItems.length === 0}}">暂无收藏记录，去农产品页收藏吧</view>
+
+    <block wx:for="{{favoriteItems}}" wx:key="_id" wx:for-index="index">
+      <view class="fav-swipe-row"
+            data-index="{{index}}"
+            bindtouchstart="onSwipeStart"
+            bindtouchmove="onSwipeMove"
+            bindtouchend="onSwipeEnd">
+        <view class="fav-swipe-inner {{swipedIndex === index ? 'open' : ''}}">
+          <view class="favorite-item" bindtap="onFavoriteItemTap" data-product-id="{{item.productId}}">
+            <image class="favorite-image" src="{{item.imageUrl}}" mode="aspectFill" />
+            <view class="favorite-body">
+              <view class="favorite-name">{{item.name}}</view>
+              <view class="favorite-meta">价格：¥{{item.priceDisplay}}</view>
+              <view class="favorite-meta">收藏时间：{{item.createdAtText}}</view>
+            </view>
+          </view>
+          <view class="fav-swipe-del" catchtap="onFavoriteRemoveTap" data-id="{{item._id}}" data-index="{{index}}">取消收藏</view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

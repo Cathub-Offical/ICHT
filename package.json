@@ -1,0 +1,7 @@
+{
+  "name": "feiyititian",
+  "version": "1.0.0",
+  "dependencies": {
+    "threejs-miniprogram": "0.0.8"
+  }
+}

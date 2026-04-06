@@ -1,0 +1,8 @@
+<canvas
+  type="webgl"
+  id="model-canvas"
+  style="width:{{w}}px;height:{{h}}px;display:block;"
+  bindtouchstart="onTouchStart"
+  bindtouchmove="onTouchMove"
+  bindtouchend="onTouchEnd"
+/>

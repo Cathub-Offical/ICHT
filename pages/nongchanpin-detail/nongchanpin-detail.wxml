@@ -1,0 +1,67 @@
+<glass-nav title="农产品详情" />
+
+<view class="container {{elderMode ? 'elder-mode' : ''}}">
+  <view class="card" wx:if="{{loading}}">
+    <view class="subtitle">详情加载中...</view>
+  </view>
+
+  <view class="card" wx:if="{{!loading && !item}}">
+    <view class="subtitle">未找到该农产品</view>
+  </view>
+
+  <block wx:if="{{!loading && item}}">
+    <view class="card detail-card">
+      <image class="product-image" src="{{item.imageUrl}}" mode="aspectFill" />
+      <view class="title">{{item.name}}</view>
+      <view class="price">¥{{item.price}}</view>
+      <view class="desc">{{item.description}}</view>
+      <view class="meta-grid">
+        <view class="meta-item">
+          <text class="meta-label">产地</text>
+          <text class="meta-value">{{item.origin || "--"}}</text>
+        </view>
+        <view class="meta-item">
+          <text class="meta-label">采摘时间</text>
+          <text class="meta-value">{{item.harvestTime || "--"}}</text>
+        </view>
+      </view>
+      <view class="meta-line">营养成分：{{item.nutrition || "--"}}</view>
+      <view class="meta-line">溯源编号：{{item.traceInfo || "--"}}</view>
+    </view>
+
+    <view class="card action-card" wx:if="{{!isAdmin}}">
+      <view class="row">
+        <text class="row-label">计量单位</text>
+        <view class="unit-selector">
+          <view
+            wx:for="{{units}}"
+            wx:key="*this"
+            class="unit-option {{item === unit ? 'active' : ''}}"
+            bindtap="onUnitChange"
+            data-unit="{{item}}"
+          >{{item}}</view>
+        </view>
+      </view>
+      <view class="row">
+        <text class="row-label">购买数量</text>
+        <view class="qty-box">
+          <view class="qty-btn" bindtap="onQuantityStep" data-delta="-1">-</view>
+          <view class="qty-value">{{quantity}}</view>
+          <view class="qty-btn" bindtap="onQuantityStep" data-delta="1">+</view>
+        </view>
+      </view>
+      <view class="row total-row">
+        <text class="row-label">合计金额</text>
+        <text class="total-amount">¥{{amountDisplay}}</text>
+      </view>
+      <view class="action-row">
+        <view class="secondary-btn" bindtap="onAddToCart">加入购物车</view>
+        <view class="primary-btn" bindtap="onBuyNow">下单购买</view>
+      </view>
+    </view>
+
+    <view class="card" wx:if="{{isAdmin}}">
+      <view class="subtitle">当前为管理员账号，可在列表页执行编辑和删除操作</view>
+    </view>
+  </block>
+</view>

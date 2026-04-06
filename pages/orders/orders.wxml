@@ -1,0 +1,111 @@
+<glass-nav title="订单管理" showBack="{{false}}" />
+
+<view class="container {{elderMode ? 'elder-mode' : ''}}">
+  <view class="card" wx:if="{{loading}}">
+    <view class="subtitle">数据加载中...</view>
+  </view>
+
+  <block wx:if="{{!isAdmin}}">
+    <view class="card" wx:if="{{!loading}}">
+      <view class="section-title">我的购物车</view>
+      <view class="subtitle" wx:if="{{cartItems.length === 0}}">购物车暂无商品</view>
+      <view class="primary-btn ghost" wx:if="{{cartItems.length === 0}}" bindtap="onGoProducts">去选购农产品</view>
+
+      <block wx:for="{{cartItems}}" wx:key="_id" wx:for-index="index">
+        <view class="cart-item">
+          <image class="cart-image" src="{{item.imageUrl}}" mode="aspectFill" />
+          <view class="cart-main">
+            <view class="cart-name">{{item.name}}</view>
+            <view class="cart-meta">单价：¥{{item.priceDisplay}} / {{item.unit || '斤'}}</view>
+            <view class="cart-meta">小计：¥{{item.subtotalDisplay}}</view>
+            <view class="unit-toggle">
+              <view class="unit-btn {{item.unit !== '公斤' ? 'active' : ''}}" bindtap="onCartUnitChange" data-index="{{index}}" data-unit="斤">斤</view>
+              <view class="unit-btn {{item.unit === '公斤' ? 'active' : ''}}" bindtap="onCartUnitChange" data-index="{{index}}" data-unit="公斤">公斤</view>
+            </view>
+            <view class="cart-actions">
+              <view class="qty-btn" bindtap="onCartQtyStep" data-index="{{index}}" data-delta="-1">-</view>
+              <view class="qty-value">{{item.quantity}}</view>
+              <view class="qty-btn" bindtap="onCartQtyStep" data-index="{{index}}" data-delta="1">+</view>
+              <view class="remove-btn" bindtap="onCartRemove" data-index="{{index}}">移除</view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <view class="cart-summary" wx:if="{{cartItems.length > 0}}">
+        <text>共 {{cartCount}} 件</text>
+        <text class="cart-total">合计 ¥{{cartTotal}}</text>
+      </view>
+      <view class="primary-btn" wx:if="{{cartItems.length > 0}}" bindtap="onCheckoutCart">下单购买</view>
+    </view>
+
+    <view class="card" wx:if="{{!loading}}">
+      <view class="section-title">我的订单</view>
+      <view class="order-search-bar">
+        <input class="order-search-input" placeholder="请输入订单号" value="{{orderNoKeyword}}" bindinput="onOrderNoInput" />
+        <view class="primary-btn mini" bindtap="onOrderNoSearch" style="width: 122rpx; display: block; box-sizing: border-box">搜索</view>
+      </view>
+      <view class="subtitle" wx:if="{{userOrders.length === 0}}">暂无订单记录</view>
+
+      <block wx:for="{{userOrdersFiltered}}" wx:key="_id">
+        <view class="order-card">
+          <view class="order-head">
+            <text class="order-no">订单号：{{item.orderNo}}</text>
+            <text class="status-tag {{item.statusClass}}">{{item.status}}</text>
+          </view>
+          <view class="order-meta">下单时间：{{item.createdAtText}}</view>
+          <view class="order-meta">商品数量：{{item.itemCount}} 件</view>
+          <view class="order-meta amount">订单金额：¥{{item.totalAmountDisplay}}</view>
+          <view class="order-items" wx:if="{{item.items.length > 0}}">
+            <block wx:for="{{item.items}}" wx:key="subIndex" wx:for-item="subItem" wx:for-index="subIndex">
+              <view class="order-item-row">
+                <text class="item-name">{{subItem.name}}</text>
+                <text class="item-value">×{{subItem.quantity}} {{subItem.unit}} / ¥{{subItem.subtotalDisplay}}</text>
+              </view>
+            </block>
+          </view>
+          <view class="order-action-row" wx:if="{{item.status === '已完成'}}" style="display:flex;gap:12rpx;margin-top:16rpx;">
+            <view class="admin-flat-btn danger" bindtap="onDeleteOrderTap" data-id="{{item._id}}">删除</view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+
+  <block wx:if="{{isAdmin}}">
+    <view class="card" wx:if="{{!loading && adminOrders.length === 0}}">
+      <view class="subtitle">暂无订单数据</view>
+    </view>
+
+    <view class="order-search-bar" style="margin-bottom: 0;">
+      <input class="order-search-input" placeholder="请输入订单号" value="{{adminOrderNoKeyword}}" bindinput="onAdminOrderNoInput" />
+      <view class="primary-btn mini" bindtap="onAdminOrderNoSearch" style="width: 122rpx; display: block; box-sizing: border-box">搜索</view>
+    </view>
+    <block wx:for="{{adminOrdersFiltered}}" wx:key="_id">
+      <view class="card order-card">
+        <view class="order-head">
+          <text class="order-no">订单号：{{item.orderNo}}</text>
+          <text class="status-tag {{item.statusClass}}">{{item.status}}</text>
+        </view>
+        <view class="order-meta">用户：{{item.userName}}</view>
+        <view class="order-meta">时间：{{item.createdAtText}}</view>
+        <view class="order-meta amount">金额：¥{{item.totalAmountDisplay}}</view>
+
+        <view class="order-items" wx:if="{{item.items.length > 0}}">
+          <block wx:for="{{item.items}}" wx:key="subIndex" wx:for-item="subItem" wx:for-index="subIndex">
+            <view class="order-item-row">
+              <text class="item-name">{{subItem.name}}</text>
+              <text class="item-value">×{{subItem.quantity}} {{subItem.unit}} / ¥{{subItem.subtotalDisplay}}</text>
+            </view>
+          </block>
+        </view>
+
+        <view class="admin-action-row" style="display:flex;gap:12rpx;margin-top:16rpx;">
+          <view wx:if="{{item.status === '待发货'}}" class="admin-flat-btn" bindtap="onAdminStatusTap" data-id="{{item._id}}" data-status="配送中">设为配送中</view>
+          <view wx:if="{{item.status === '配送中'}}" class="admin-flat-btn" bindtap="onAdminStatusTap" data-id="{{item._id}}" data-status="已完成">设为已完成</view>
+          <view class="admin-flat-btn danger" bindtap="onAdminDeleteOrderTap" data-id="{{item._id}}">删除</view>
+        </view>
+      </view>
+    </block>
+  </block>
+</view>

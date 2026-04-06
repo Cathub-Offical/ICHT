@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "用户管理",
+  "enablePullDownRefresh": true,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "glass-nav": "/components/glass-nav/index"
+  }
+}

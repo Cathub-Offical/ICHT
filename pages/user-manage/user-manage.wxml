@@ -1,0 +1,84 @@
+<glass-nav title="用户管理" />
+
+<view class="container {{elderMode ? 'elder-mode' : ''}}">
+  <view class="card" wx:if="{{!isAdmin}}">
+    <view class="subtitle">仅管理员可访问用户管理页面</view>
+  </view>
+
+  <block wx:if="{{isAdmin}}">
+    <view class="card">
+      <view class="title">用户管理</view>
+      <view class="manage-tip">仅支持普通用户增删改查；管理员账号（admin）不可编辑</view>
+
+      <view class="query-row">
+        <input class="query-input" value="{{userQueryKeyword}}" placeholder="输入账号或姓名查询" bindinput="onUserQueryInput" />
+        <view class="query-btn" bindtap="onUserQuerySubmit">查询</view>
+        <view class="query-btn reset" bindtap="onUserQueryReset">重置</view>
+      </view>
+    </view>
+
+    <view class="card" id="user-form-card">
+      <view class="form-title">{{editingUserId ? "编辑普通用户" : "新增普通用户"}}</view>
+
+      <view class="form-field">
+        <text class="form-label">姓名</text>
+        <input class="form-input" value="{{userForm.name}}" placeholder="请输入姓名" bindinput="onUserNameInput" />
+      </view>
+
+      <view class="form-field">
+        <text class="form-label">账号</text>
+        <input class="form-input" value="{{userForm.account}}" placeholder="请输入账号（至少4位）" bindinput="onUserAccountInput" disabled="{{editingUserId}}" />
+      </view>
+
+      <view class="form-field">
+        <text class="form-label">{{editingUserId ? "新密码（不填则不修改）" : "密码（至少6位）"}}</text>
+        <input class="form-input" value="{{userForm.password}}" placeholder="请输入密码" password bindinput="onUserPasswordInput" />
+      </view>
+
+      <view class="form-field">
+        <text class="form-label">状态</text>
+        <picker mode="selector" range="{{statusTextOptions}}" value="{{userForm.statusIndex}}" bindchange="onUserStatusChange">
+          <view class="form-input picker-input">{{statusTextOptions[userForm.statusIndex]}}</view>
+        </picker>
+      </view>
+
+      <view class="form-actions">
+        <view class="primary-btn" bindtap="onUserSubmit">{{editingUserId ? "保存修改" : "新增用户"}}</view>
+        <view class="secondary-btn" wx:if="{{editingUserId}}" bindtap="onUserCancelEdit">取消编辑</view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="list-title">普通用户列表</view>
+      <view class="subtitle" wx:if="{{loadingUsers}}">用户加载中...</view>
+      <view class="subtitle" wx:if="{{!loadingUsers && managedUsers.length === 0}}">暂无普通用户数据</view>
+
+      <block wx:for="{{managedUsers}}" wx:key="_id" wx:for-index="index">
+        <view class="swipe-row"
+              data-index="{{index}}"
+              bindtouchstart="onSwipeStart"
+              bindtouchmove="onSwipeMove"
+              bindtouchend="onSwipeEnd">
+          <view class="swipe-inner {{swipedIndex === index ? 'open' : ''}}">
+            <view class="user-item">
+              <view class="user-avatar">
+                <image wx:if="{{item.avatarUrl}}" class="avatar-img-sm" src="{{item.avatarUrl}}" mode="aspectFill" />
+                <text wx:else class="avatar-initial">{{item.name ? item.name[0] : '?'}}</text>
+              </view>
+              <view class="user-main">
+                <view class="user-name">{{item.name}}</view>
+                <view class="user-account">{{item.account}} · {{item.statusLabel}}</view>
+                <view class="user-meta">最近登录：{{item.lastLoginAtText}}</view>
+              </view>
+              <view class="user-regtime">{{item.createdAtText}}</view>
+            </view>
+            <view class="swipe-actions">
+              <view class="swipe-btn swipe-edit" bindtap="onUserEditTap" data-index="{{index}}">修改</view>
+              <view class="swipe-btn swipe-delete" bindtap="onUserDeleteTap" data-index="{{index}}">删除</view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+</view>

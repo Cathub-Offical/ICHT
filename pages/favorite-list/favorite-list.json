@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "\u6211\u7684\u6536\u85cf",
+  "enablePullDownRefresh": true,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "glass-nav": "/components/glass-nav/index"
+  }
+}

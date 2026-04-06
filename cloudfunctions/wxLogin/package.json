@@ -1,0 +1,9 @@
+{
+  "name": "wx-login",
+  "version": "1.0.0",
+  "description": "WeChat login via openid",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}
